@@ -1,0 +1,1 @@
+This project is the companion to the blog post, [Using JMock with Spring 3 tests](http://datumedge.blogspot.co.uk/2012/10/using-jmock-with-spring-3-tests.html).  To run the project, use `mvn clean verify`.
