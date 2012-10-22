@@ -28,7 +28,7 @@ public class MyServiceTest {
 	@Autowired private MyCollaborator collaborator;
 	
 	@Test
-	public void test() {
+	public void doublesCollaboratorValue() {
 		context.checking(new Expectations() {{
 			allowing(collaborator).compute(); will(returnValue(42));
 		}});
