@@ -23,21 +23,7 @@ import uk.co.datumedge.springmock.MyServiceConfig;
 @ContextConfiguration(classes={MyServiceConfig.class, MyServiceTest.Config.class})
 @DirtiesContext(classMode=AFTER_EACH_TEST_METHOD)
 public class MyServiceTest {
-	@Rule @Autowired public JUnitRuleMockery context;
-	@Autowired private MyService service;
-	@Autowired private MyCollaborator collaborator;
-	
-	@Test
-	public void doublesCollaboratorValue() {
-		context.checking(new Expectations() {{
-			allowing(collaborator).compute(); will(returnValue(42));
-		}});
-		
-		assertThat(service.performUsefulFunction(), equalTo(84));
-	}
-	
-	@Configuration
-	public static class Config {
+	@Configuration public static class Config {
 		@Bean
 		public JUnitRuleMockery context() {
 			return new JUnitRuleMockery();
@@ -47,5 +33,17 @@ public class MyServiceTest {
 		public MyCollaborator myCollaborator() {
 			return context().mock(MyCollaborator.class);
 		}
+	}
+
+	@Rule @Autowired public JUnitRuleMockery context;
+	@Autowired private MyService service;
+	@Autowired private MyCollaborator collaborator;
+	
+	@Test public void doublesCollaboratorValue() {
+		context.checking(new Expectations() {{
+			allowing(collaborator).compute(); will(returnValue(42));
+		}});
+		
+		assertThat(service.performUsefulFunction(), equalTo(84));
 	}
 }
